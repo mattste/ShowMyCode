@@ -1,5 +1,16 @@
 <!doctype html>
 <html lang = "en">
+<style>
+
+.link {
+  stroke: #ccc;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+</style>
 <head>
     <meta charset = "utf-8"/>
     <title>D3 Test</title>
