@@ -106,7 +106,7 @@ def getD3Data(fxnArr):
 	'nodes': data,
 	'links': links,
     }
-    print(d3Data)
+    return d3Data
 
 
 def getStructure():
@@ -122,8 +122,5 @@ def getStructure():
     #print(ast.dump(codeAst))
     tg = treeGen()
     tg.visit(codeAst)
-    getD3Data(tg.fxns)
-    return tg.fxns
+    return getD3Data(tg.fxns)
     #visitNode(codeAst)
-
-getStructure()

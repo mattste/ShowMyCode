@@ -1,8 +1,10 @@
-from bottle import route, run, template
+from bottle import route, run, template, static_file
 import subprocess
+import os
 import webbrowser
 import json
 import smc
+
 
 """
 @route('/hello/<name>')
@@ -19,11 +21,19 @@ myData = {
 
 @route('/')
 def beginCom():
+    return template('basicD3')
+
+@route('/structure')
+def setupFxns():
     return json.dumps(smc.getStructure())
 
 @route('/data')
 def sendLogs():
     return json.dumps(myData)
+
+@route('/visuals/:path#.+#', name='static')
+def static(path):
+    return static_file(path, root='./visuals/')
 
 
 #subprocess.call('python -m webbrowser -t "localhost:8080/data"')
