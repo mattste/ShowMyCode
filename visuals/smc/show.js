@@ -1,3 +1,3 @@
 $.get('/structure', function(data){
-	console.log(data);
+	console.log(JSON.parse(data));
 	});
