@@ -10,9 +10,12 @@ $.get('/structure', function(ajaxData){
     {
     	var newIndex = (qIndex + 1)% queue.length;
 		var checkName =queue[qIndex].name;
+		if(queue[newIndex].isBegin)
+			progStack.push(queue[qIndex].name);
+		else
+			progStack.pop();
 		while(checkName === queue[newIndex].name)
 		{
-			console.log(newIndex);
 			newIndex = (newIndex + 1)% queue.length;
 		}
 		qIndex = newIndex;
@@ -23,9 +26,12 @@ $.get('/structure', function(ajaxData){
     {
 		var newIndex = (qIndex + queue.length - 1)% queue.length;
 		var checkName =queue[qIndex].name;
+		if(queue[newIndex].isBegin)
+			progStack.pop();
+		else
+			progStack.push(queue[qIndex].name);
 		while(checkName=== queue[newIndex].name)
 		{
-			console.log(newIndex);
 			newIndex = (newIndex + queue.length - 1)% queue.length;
 		}
 		qIndex = newIndex;
@@ -208,6 +214,13 @@ function updateQueue()
 	});
 }
 
+function nameInProgStack(name)
+{
+	for(var i = 0; i < progStack.length; ++i)
+		if(progStack[i] === name)
+			return true;
+	return false;
+}
 
 function updateGraph()
 {
@@ -219,7 +232,12 @@ function updateGraph()
 	var curName = logObj.name;
 	d3.selectAll('circle').
 	attr("class", function(d){
-		return d.name === curName ? "running" : "";
+		if(d.name === curName)
+			return "running";
+		else if(nameInProgStack(d.name))
+			return "stack";
+		else
+			return "";
 	});	
 }
 updateQueue();

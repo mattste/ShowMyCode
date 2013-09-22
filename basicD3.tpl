@@ -51,6 +51,9 @@ circle.bubble {
 circle.running {
   fill: green;
 }
+circle.stack{
+  fill: yellow;
+}
 
 
 text {
