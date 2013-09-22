@@ -1,32 +1,43 @@
 var queue = [];
+var progStack = [];
 var qIndex = 0;
 
 
 $.get('/structure', function(ajaxData){
 
+    function incrementQIndex()
+    {
+    	var newIndex = (qIndex + 1)% queue.length;
+		var checkName =queue[qIndex].name;
+		while(checkName === queue[newIndex].name)
+		{
+			console.log(newIndex);
+			newIndex = (newIndex + 1)% queue.length;
+		}
+		qIndex = newIndex;
+    }
+
+    function decrementQIndex()
+    {
+		var newIndex = (qIndex + queue.length - 1)% queue.length;
+		var checkName =queue[qIndex].name;
+		while(checkName=== queue[newIndex].name)
+		{
+			console.log(newIndex);
+			newIndex = (newIndex + queue.length - 1)% queue.length;
+		}
+		qIndex = newIndex;
+    }
+
 	$(document).ready(function(){
 
 		$('.slider').slider();
 		$('#back').click(function(e){
-			var newIndex = (qIndex + queue.length - 1)% queue.length;
-			var checkName =queue[qIndex].name;
-			while(checkName=== queue[newIndex].name)
-			{
-				console.log(newIndex);
-			    newIndex = (newIndex + queue.length - 1)% queue.length;
-			}
-			qIndex = newIndex;
+			decrementQIndex();
 			updateGraph();
 		});
 		$('#fwd').click(function(e){
-			var newIndex = (qIndex + 1)% queue.length;
-			var checkName =queue[qIndex].name;
-			while(checkName === queue[newIndex].name)
-			{
-				console.log(newIndex);
-				newIndex = (newIndex + 1)% queue.length;
-			}
-			qIndex = newIndex; 
+			incrementQIndex();
 			updateGraph();
 		});
 
@@ -58,8 +69,8 @@ $.get('/structure', function(ajaxData){
 	    .attr("viewBox", "0 -5 10 10")
 	    .attr("refX", 15) 
 	    .attr("refY", -1.5)
-	    .attr("markerWidth", 6)
-	    .attr("markerHeight", 6)
+	    .attr("markerWidth", 12)
+	    .attr("markerHeight", 12)
 	    .attr("orient", "auto")
 	    .append("svg:path")
 	    .attr("d", "M0,-5L10,0L0,5");
@@ -73,7 +84,7 @@ $.get('/structure', function(ajaxData){
 	var circle = svg.append("svg:g").selectAll("circle")
 		.data(force.nodes())
 		.enter().append("svg:circle")
-		.attr("r", 6)
+		.attr("r", 12)
 		.attr("id", function(d){ return d.name;})
 		.attr("class", function(d){
 			return d.name === 'main' ? "running" : "";

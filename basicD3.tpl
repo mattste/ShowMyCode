@@ -75,7 +75,6 @@ text.shadow {
 </head>
 <body>
 <div class="container controller">
-  <div class="hero-unit">
     <div class="row-fluid">
       <div id="back" class="elt offset1 span2">
         <button class='btn'>
@@ -103,7 +102,6 @@ text.shadow {
       -->
       </div>
     </div>
-  </div>
 </div>
 <div class="container">
 </div>
