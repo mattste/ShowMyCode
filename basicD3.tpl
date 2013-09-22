@@ -7,6 +7,13 @@
   text-align: center;
 }
 
+#top {
+  border-bottom: 1px solid black;
+}
+.container-controller {
+  border-bottom: 1px solid black;
+}
+
 .playback-controls {
   margin-top: 20px;
 }
@@ -67,7 +74,7 @@ circle.running {
 
 
 text {
-    font: 10px sans-serif;
+    font: 18px sans-serif;
     pointer-events: none;
 }
 
@@ -92,7 +99,7 @@ text.shadow {
     <script type="text/javascript" src="/visuals/bootstrap/js/bootstrap-slider.js"></script>
 </head>
 <body>
-<div class="container controller">
+<div id="top" class="container controller">
     <div class="span12 row-fluid">
       <div class="span4">
         <H1>Show My Code</H1>
@@ -128,8 +135,6 @@ text.shadow {
        <input type="text" class="span2 slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide"> 
         Slide
       -->
-      </div>
-    </div>
 </div>
 <div class="container">
 </div>
