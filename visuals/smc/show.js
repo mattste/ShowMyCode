@@ -20,6 +20,12 @@ $.get('/structure', function(ajaxData){
     		while(checkName === queue[newIndex].name)
     		{
     			newIndex = (newIndex + 1)% queue.length;
+    			/*
+	    		if(queue[newIndex].isBegin)
+	    			progStack.push(queue[qIndex].name);
+	    		else
+	    			progStack.pop();
+	    		*/
     		}
     		qIndex = newIndex;
     	}
