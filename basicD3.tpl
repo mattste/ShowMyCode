@@ -9,6 +9,12 @@
 /*  stroke-dasharray: 0, 2 1;*/
 }
 
+.top-buffer { margin-top:35px; }
+
+.elt {
+  text-align: center;
+}
+
 .node text {
   pointer-events: none;
   font: 10px sans-serif;
@@ -60,10 +66,45 @@ text.shadow {
    <!-- 
     <script type="text/javascript" src="/visuals/d3/d3.js"></script>
   -->
+    <link href="/visuals/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/visuals/bootstrap/css/slider.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/visuals/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/visuals/jquery/jquery.js"></script>
     <script type="text/javascript" src="/visuals/smc/show.js"></script>
+    <script type="text/javascript" src="/visuals/bootstrap/js/bootstrap-slider.js"></script>
 </head>
 <body>
+<div class="container controller">
+  <div class="hero-unit">
+    <div class="row-fluid">
+      <div id="back" class="elt offset1 span2">
+        <button class='btn'>
+          <i class="icon-step-backward"></i>
+        </button>
+      </div>
+      <div id="action" class="elt play offset1 span4">
+        <button class='btn'> 
+          <i class="icon-play"></i>
+        </button>
+      </div>
+      <div id="fwd" class="elt span2 offset1">
+        <button class='btn'> 
+          <i class="icon-step-forward"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row-fluid elt top-buffer">
+      <div id="well" class="elt offset3 span6">
+        <div class="slider slider-horizontal" style="width: 140px">
+        </div>
+        <!--
+       <input type="text" class="span2 slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide"> 
+        Slide
+      -->
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
 </div>
 </body>
