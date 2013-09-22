@@ -4,6 +4,7 @@ import os
 import webbrowser
 import json
 import smc
+import realtime
 
 
 """
@@ -30,6 +31,10 @@ def setupFxns():
 @route('/data')
 def sendLogs():
     return json.dumps(myData)
+
+@route('/realtime')
+def sendActions():
+    return json.dumps(realtime.getActions(), cls=realtime.MyEncoder)
 
 @route('/visuals/:path#.+#', name='static')
 def static(path):

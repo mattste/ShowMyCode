@@ -115,6 +115,7 @@ def getStructure():
         exit()
 
     fileName = sys.argv[1]
+    fileName += ".py"
     f = open(fileName, 'r')
     codeBase = f.read()
     codeAst = transformers.ParentNodeTransformer().visit(ast.parse(codeBase))
