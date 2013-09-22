@@ -91,10 +91,23 @@ text.append("svg:text")
 	    return outStr
 	});
 
-
+var i = 0;
 // Use elliptical arc path segments to doubly-encode directionality.
 function tick() {
   path.attr("d", function(d) {
+
+  	// prevent nodes from traveling out of bounds
+  	// check target nodes
+  	if (d.target.y > height) { d.target.y = height - 20; }
+  	else if (d.target.y < 0) { d.target.y = 20; }
+  	if (d.target.x > width) { d.target.x = width - 20; }
+  	else if( d.target.x < 30 ){ d.target.x = 20; }
+  	
+  	// check source nodes
+  	if (d.source.y > height) { d.source.y = height - 20; }
+  	else if (d.source.y < 0) { d.source.y = 20; }
+  	if (d.source.x < 0) { d.source.x = 20; }
+    
     var dx = d.target.x - d.source.x,
         dy = d.target.y - d.source.y,
         dr = Math.sqrt(dx * dx + dy * dy);
