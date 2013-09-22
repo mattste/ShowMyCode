@@ -8,10 +8,13 @@
 }
 
 #top {
+  margin-left: 40px;
   border-bottom: 1px solid black;
 }
-.container-controller {
-  border-bottom: 1px solid black;
+
+#footer {
+  margin-top: 20px;
+  border-top: 1px solid black;
 }
 
 .playback-controls {
@@ -102,6 +105,7 @@ text.shadow {
     <script type="text/javascript" src="/visuals/bootstrap/js/bootstrap-slider.js"></script>
 </head>
 <body>
+<div class="span12">
 <div id="top" class="container controller">
     <div class="span12 row-fluid top-buffer">
       <div class="span4">
@@ -131,16 +135,11 @@ text.shadow {
       </div>
     </div>
 </div>
-<!--     <div class="row-fluid elt top-buffer">
-      <div id="well" class="elt offset3 span6">
-        <div class="slider slider-horizontal" style="width: 140px">
-        </div> -->
-        
-        <!--
-       <input type="text" class="span2 slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide"> 
-        Slide
-      -->
-<div class="container">
+<div id="graph" class="span12">
+</div>
+<div id="footer" class="span12 row-fluid">
+  <p>Hacked by <a href="https://github.com/karatekid/">Michael Christen</a>, <a href="https://github.com/jcon5294/">Joseph Constan</a> and <a href="https://github.com/mattste/">Matt Stewart</a> at <a href="http://www.mhacks.org/">Mhacks. </a>Grab the code <a href="https://bitbucket.org/karatekid/showmycode/overview/">here</a></p>
+</div>
 </div>
 </body>
 </html>
