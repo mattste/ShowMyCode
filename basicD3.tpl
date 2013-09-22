@@ -2,6 +2,19 @@
 <html lang = "en">
 <style>
 
+.header {
+  margin: 20px 50px 20px 50px;
+  text-align: center;
+}
+
+.playback-controls {
+  margin-top: 20px;
+}
+
+.slider-controls {
+  margin-top: 5px;
+}
+
 .link {
   fill: none;
   stroke: #ccc;
@@ -17,7 +30,7 @@
 
 .node text {
   pointer-events: none;
-  font: 10px sans-serif;
+  font: 18px sans-serif;
 }
 path.link {
     fill: none;
@@ -44,7 +57,7 @@ circle {
 }
 
 circle.bubble {
-    fill: blue;
+    fill: #d1006c;
     stroke: #333;
     stroke-width: 1.5px;
 }
@@ -80,27 +93,35 @@ text.shadow {
 </head>
 <body>
 <div class="container controller">
-    <div class="row-fluid">
-      <div id="back" class="elt offset1 span2">
+    <div class="span12 row-fluid">
+      <div class="span4">
+        <H1>Show My Code</H1>
+      </div>
+      <div class="playback-controls offset1 span7">
+      <div id="back" class="elt span1">
         <button class='btn'>
           <i class="icon-step-backward"></i>
         </button>
       </div>
-      <div id="action" class="elt play offset1 span4">
+      <div id="action" class="elt play span1">
         <button class='btn'> 
           <i class="icon-play"></i>
         </button>
       </div>
-      <div id="fwd" class="elt span2 offset1">
+      <div id="fwd" class="elt span1">
         <button class='btn'> 
           <i class="icon-step-forward"></i>
         </button>
       </div>
+      <div class="slider-controls span3">
+      <div class="slider slider-horizontal" style="width: 140px"></div>
+      </div>
+      </div>
     </div>
-    <div class="row-fluid elt top-buffer">
+<!--     <div class="row-fluid elt top-buffer">
       <div id="well" class="elt offset3 span6">
         <div class="slider slider-horizontal" style="width: 140px">
-        </div>
+        </div> -->
         <!--
        <input type="text" class="span2 slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide"> 
         Slide
