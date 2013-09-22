@@ -108,19 +108,19 @@ def getD3Data(fxnArr):
     }
     return d3Data
 
+if(len(sys.argv) != 2):
+    print "Need a filename\n"
+    exit()
+fileName = sys.argv[1]
+f = open(fileName, 'r')
+codeBase = f.read()
+codeAst = transformers.ParentNodeTransformer().visit(ast.parse(codeBase))
+
+#print(ast.dump(codeAst))
+tg = treeGen()
+tg.visit(codeAst)
+data = getD3Data(tg.fxns)
 
 def getStructure():
-    if(len(sys.argv) != 2):
-        print "Need a filename\n"
-        exit()
-
-    fileName = sys.argv[1]
-    f = open(fileName, 'r')
-    codeBase = f.read()
-    codeAst = transformers.ParentNodeTransformer().visit(ast.parse(codeBase))
-
-    #print(ast.dump(codeAst))
-    tg = treeGen()
-    tg.visit(codeAst)
-    return getD3Data(tg.fxns)
+    return data
     #visitNode(codeAst)
