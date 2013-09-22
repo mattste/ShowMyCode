@@ -200,7 +200,7 @@ function tick() {
 function passArgBubble()
 {
 	var curPath = getCurrentPath();
-	if (!curPath)
+	if (!curPath.node())
 		return;
 
 	var bubble = 
@@ -271,14 +271,14 @@ function updateGraph()
 {
 	if(queue.length <= 0)
 		return;
-	if(qIndex >= queue.length || qIndex < 0)
-		qIndex = 0;
-	logObj = queue[qIndex];
-	var curName = logObj.name;
+	if(qIndex >= queue.length || qIndex < 1)
+		qIndex = 1;
+	logObj = queue[qIndex-1];
+	var prevName = logObj.name;
 
 	d3.selectAll('circle').
 	attr("class", function(d){
-		return (d && d.name === curName) ? "running" : "";
+		return (d && d.name === prevName) ? "running" : "";
 	});
 	passArgBubble();
 }
