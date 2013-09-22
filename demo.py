@@ -30,9 +30,11 @@ def lost(home):
 
 def callNum(num):
 	print "Calling: %d" % num
-	dialAC(737)
-	dialDigits(291)
-	dialPerson("Denard")
+	x = 737
+	dialAC(x)
+	
+	person = "Denard"
+	dialPerson(person)
 	return
 
 def found(happy):
@@ -40,10 +42,12 @@ def found(happy):
 	return getBounds(900, 100)
 
 def dialAC(x):
+	y = 291
+	dialDigits(y)
 	return
 
 def dialDigits(x):
-	return
+	return map("Dora")
 
 def dialPerson(name):
 	return name
