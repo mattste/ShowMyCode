@@ -197,6 +197,64 @@ function tick() {
   });
 }
 
+function passArgBubble()
+{
+	var curPath = getCurrentPath();
+	if (!curPath)
+		return;
+
+	var bubble = 
+	svg.insert("svg:circle", ":first-child")
+	.attr("class", "bubble")
+    .attr("r", 10)
+    .attr("x", curPath.datum().source.x)
+    .attr("y", curPath.datum().source.y);
+
+    transition(bubble, curPath);
+}
+
+function getCurrentPath()
+{
+	var curObj = queue[qIndex];
+	var prevObj = queue[qIndex-1];
+
+	console.log("desired source: " + prevObj.name);
+	console.log("desired target: " + curObj.name);	
+
+	var rets = path.filter(function(d, i) {
+		console.log("iter source: " + d.source.name);
+		console.log("iter target: " + d.target.name);
+		return (d.source.name == prevObj.name &&
+				d.target.name == curObj.name);
+	});
+
+	console.log("found path: " + rets.node());
+
+	return rets;
+}
+
+function transition(bubble, curPath)
+{
+	console.log("path: " + curPath);
+	bubble.transition()
+	.duration(2000)
+	.attrTween("transform", translateAlong(curPath.node()))
+	.each("end", function(){
+		bubble.remove();
+	});
+}
+
+// Returns an attrTween for translating along the specified path element.
+function translateAlong(thePath) 
+{
+  var l = thePath.getTotalLength();
+  return function(d, i, a) {
+    return function(t) {
+      var p = thePath.getPointAtLength(t * l);
+      return "translate(" + p.x + "," + p.y + ")";
+    };
+  };
+}
 
 function updateQueue()
 {
@@ -217,10 +275,12 @@ function updateGraph()
 		qIndex = 0;
 	logObj = queue[qIndex];
 	var curName = logObj.name;
+
 	d3.selectAll('circle').
 	attr("class", function(d){
-		return d.name === curName ? "running" : "";
-	});	
+		return (d && d.name === curName) ? "running" : "";
+	});
+	passArgBubble();
 }
 updateQueue();
 });
