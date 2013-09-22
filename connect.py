@@ -5,6 +5,7 @@ import webbrowser
 import json
 import smc
 import realtime
+from multiprocessing import Process
 
 
 myData = {
@@ -35,7 +36,12 @@ def sendActions():
 def static(path):
     return static_file(path, root='./visuals/')
 
+def startServer():
+    run(host='localhost', port=8080)
 
+#p1 = Process(target = startServer)
+#p1.start()
 #subprocess.call('python -m webbrowser -t "localhost:8080/data"')
+realtime.beginRealtime()
 webbrowser.open("http://localhost:8080")
 run(host='localhost', port=8080)

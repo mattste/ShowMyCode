@@ -1,3 +1,7 @@
+var queue = [];
+var qIndex = 0;
+var callFxn;
+
 $.get('/structure', function(ajaxData){
 	var data =  JSON.parse(ajaxData);
 	console.log(data);
@@ -42,6 +46,7 @@ $.get('/structure', function(ajaxData){
 		.data(force.nodes())
 		.enter().append("svg:circle")
 		.attr("r", 6)
+		.attr("id", function(d){ return d.name;})
 		.call(force.drag);
 
 var text = svg.append("svg:g").selectAll("g")
@@ -104,4 +109,35 @@ function tick() {
     return "translate(" + d.x + "," + d.y + ")";
   });
 }
+
+
+function updateQueue()
+{
+	//Continuously update the graph
+	$.get('/realtime', function(ajaxData){
+		//console.log(JSON.parse(ajaxData));
+		queue = queue.concat(JSON.parse(ajaxData));
+		setTimeout(updateQueue, 3000);
+	});
+}
+
+
+function updateGraph()
+{
+	if(queue.length <= 0)
+		return;
+	if(qIndex >= queue.length || qIndex < 0)
+		qIndex = 0;
+	logObj = queue[qIndex];
+	var curName = logObj.name;
+	d3.selectAll('circle').
+	attr("class", function(d){
+		return d.name === curName ? "running" : "";
+	});	
+}
+callFxn = updateGraph;
+updateQueue();
+updateGraph();
+
 });
+

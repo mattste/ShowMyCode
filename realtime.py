@@ -73,7 +73,9 @@ class RuntimeRecorder(object):
 
 rr = RuntimeRecorder()
 rr.setupRecording(sys.argv[1])
-rr.start()
+
+def beginRealtime():
+	rr.start()
 
 def getActions():
 	temp = rr.actions[:]

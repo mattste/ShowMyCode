@@ -23,7 +23,7 @@ marker#licensing {
    fill: green;
 }
 
-path.link.licensing {
+path.link.running {
    stroke: green;
 }
 
@@ -36,6 +36,11 @@ circle {
     stroke: #333;
     stroke-width: 1.5px;
 }
+
+circle.running {
+  fill: green;
+}
+
 
 text {
     font: 10px sans-serif;

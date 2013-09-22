@@ -1,6 +1,7 @@
 from math import pow
 #Decrypt a Caesar Cipher
 def main():
+    vigDecryptLen(vigenereCipher,7)
     print "hello"
 
 englDict = {
