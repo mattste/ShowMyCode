@@ -13,20 +13,14 @@ $.get('/structure', function(ajaxData){
     	{
     		var newIndex = (qIndex + 1)% queue.length;
     		var checkName =queue[qIndex].name;
+    		while(checkName === queue[newIndex].name)
+    		{
+    			newIndex = (newIndex + 1)% queue.length;
+    		}
     		if(queue[newIndex].isBegin)
     			progStack.push(queue[qIndex].name);
     		else
     			progStack.pop();
-    		while(checkName === queue[newIndex].name)
-    		{
-    			newIndex = (newIndex + 1)% queue.length;
-    			/*
-	    		if(queue[newIndex].isBegin)
-	    			progStack.push(queue[qIndex].name);
-	    		else
-	    			progStack.pop();
-	    		*/
-    		}
     		qIndex = newIndex;
     	}
     	if(qIndex === queue.length - 1)
@@ -53,14 +47,14 @@ $.get('/structure', function(ajaxData){
     	{
     		var newIndex = (qIndex + queue.length - 1)% queue.length;
     		var checkName =queue[qIndex].name;
-    		if(queue[newIndex].isBegin)
-    			progStack.pop();
-    		else
-    			progStack.push(queue[qIndex].name);
     		while(checkName=== queue[newIndex].name)
     		{
     			newIndex = (newIndex + queue.length - 1)% queue.length;
     		}
+    		if(queue[newIndex].isBegin)
+    			progStack.pop();
+    		else
+    			progStack.push(queue[qIndex].name);
     		qIndex = newIndex;
     	}
     	if(qIndex === 0)
