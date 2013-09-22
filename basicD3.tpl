@@ -43,6 +43,11 @@ circle {
     stroke-width: 1.5px;
 }
 
+circle.bubble {
+    fill: blue;
+    stroke: #333;
+    stroke-width: 1.5px;
+}
 circle.running {
   fill: green;
 }
