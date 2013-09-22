@@ -102,13 +102,8 @@ text.shadow {
     <script type="text/javascript" src="/visuals/bootstrap/js/bootstrap-slider.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
 <div id="top" class="container controller">
-    <div class="span12 row-fluid">
-=======
-<div class="container controller">
     <div class="span12 row-fluid top-buffer">
->>>>>>> d98de1537d6651a2d74bbacc15cfce4af7698f88
       <div class="span4">
         <H1>Show My Code</H1>
       </div>
@@ -145,10 +140,6 @@ text.shadow {
        <input type="text" class="span2 slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide"> 
         Slide
       -->
-<<<<<<< HEAD
-</div>
-=======
->>>>>>> d98de1537d6651a2d74bbacc15cfce4af7698f88
 <div class="container">
 </div>
 </body>
