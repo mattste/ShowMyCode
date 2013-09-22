@@ -2,7 +2,7 @@ var queue = [];
 var progStack = [];
 var qIndex = 0;
 var intervalId;
-var isAnimating;
+
 
 $.get('/structure', function(ajaxData){
 
@@ -13,14 +13,20 @@ $.get('/structure', function(ajaxData){
     	{
     		var newIndex = (qIndex + 1)% queue.length;
     		var checkName =queue[qIndex].name;
-    		while(checkName === queue[newIndex].name)
-    		{
-    			newIndex = (newIndex + 1)% queue.length;
-    		}
     		if(queue[newIndex].isBegin)
     			progStack.push(queue[qIndex].name);
     		else
     			progStack.pop();
+    		while(checkName === queue[newIndex].name)
+    		{
+    			newIndex = (newIndex + 1)% queue.length;
+    			/*
+	    		if(queue[newIndex].isBegin)
+	    			progStack.push(queue[qIndex].name);
+	    		else
+	    			progStack.pop();
+	    		*/
+    		}
     		qIndex = newIndex;
     	}
     	if(qIndex === queue.length - 1)
@@ -47,14 +53,14 @@ $.get('/structure', function(ajaxData){
     	{
     		var newIndex = (qIndex + queue.length - 1)% queue.length;
     		var checkName =queue[qIndex].name;
-    		while(checkName=== queue[newIndex].name)
-    		{
-    			newIndex = (newIndex + queue.length - 1)% queue.length;
-    		}
     		if(queue[newIndex].isBegin)
     			progStack.pop();
     		else
     			progStack.push(queue[qIndex].name);
+    		while(checkName=== queue[newIndex].name)
+    		{
+    			newIndex = (newIndex + queue.length - 1)% queue.length;
+    		}
     		qIndex = newIndex;
     	}
     	if(qIndex === 0)
@@ -74,12 +80,10 @@ $.get('/structure', function(ajaxData){
 
 		$('.slider').slider();
 		$('#back').click(function(e){
-			if (!isAnimating)
-				decrementQIndex();
+			decrementQIndex();
 		});
 		$('#fwd').click(function(e){
-			if (!isAnimating)
-				incrementQIndex();
+			incrementQIndex();
 		});
 		$('#speedSlide').on('slide', function(e)
 		{
@@ -277,15 +281,11 @@ function getCurrentPath()
 function transition(bubble, curPath)
 {
 	console.log("path: " + curPath);
-
-	isAnimating = true;
-
 	bubble.transition()
-	.duration((11-$('#speedSlide').slider('getValue').val())*80)
+	.duration(2000)
 	.attrTween("transform", translateAlong(curPath.node()))
 	.each("end", function(){
 		bubble.remove();
-		isAnimating = false;
 	});
 }
 
@@ -323,13 +323,18 @@ function updateGraph()
 {
 	if(queue.length <= 0)
 		return;
-	if(qIndex >= queue.length || qIndex < 0)
-		qIndex = 0;
-	logObj = queue[qIndex];
-	var curName = logObj.name;
+	if(qIndex >= queue.length || qIndex < 1)
+		qIndex = 1;
+	logObj = queue[qIndex-1];
+	var prevName = logObj.name;
 
 	d3.selectAll('circle').
 	attr("class", function(d){
+<<<<<<< HEAD
+		return (d && d.name === prevName) ? "running" : "";
+	});
+	passArgBubble();
+=======
 		if(d.name === curName)
 			return "running";
 		else if(nameInProgStack(d.name))
@@ -337,7 +342,7 @@ function updateGraph()
 		else
 			return "";
 	});	
-	passArgBubble();
+>>>>>>> 4b5bc69d3e2d0b8df1660bccdf4457237190c3d8
 }
 updateQueue();
 });
