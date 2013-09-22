@@ -1,8 +1,36 @@
 var queue = [];
 var qIndex = 0;
-var callFxn;
+
 
 $.get('/structure', function(ajaxData){
+
+	$(document).ready(function(){
+
+		$('.slider').slider();
+		$('#back').click(function(e){
+			var newIndex = (qIndex + queue.length - 1)% queue.length;
+			var checkName =queue[qIndex].name;
+			while(checkName=== queue[newIndex].name)
+			{
+				console.log(newIndex);
+			    newIndex = (newIndex + queue.length - 1)% queue.length;
+			}
+			qIndex = newIndex;
+			updateGraph();
+		});
+		$('#fwd').click(function(e){
+			var newIndex = (qIndex + 1)% queue.length;
+			var checkName =queue[qIndex].name;
+			while(checkName === queue[newIndex].name)
+			{
+				console.log(newIndex);
+				newIndex = (newIndex + 1)% queue.length;
+			}
+			qIndex = newIndex; 
+			updateGraph();
+		});
+
+	});
 	var data =  JSON.parse(ajaxData);
 	console.log(data);
 
@@ -47,6 +75,9 @@ $.get('/structure', function(ajaxData){
 		.enter().append("svg:circle")
 		.attr("r", 6)
 		.attr("id", function(d){ return d.name;})
+		.attr("class", function(d){
+			return d.name === 'main' ? "running" : "";
+		})
 		.call(force.drag);
 
 var text = svg.append("svg:g").selectAll("g")
@@ -148,9 +179,6 @@ function updateGraph()
 		return d.name === curName ? "running" : "";
 	});	
 }
-callFxn = updateGraph;
 updateQueue();
-updateGraph();
-
 });
 
