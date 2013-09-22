@@ -7,6 +7,13 @@
   text-align: center;
 }
 
+#top {
+  border-bottom: 1px solid black;
+}
+.container-controller {
+  border-bottom: 1px solid black;
+}
+
 .playback-controls {
   margin-top: 20px;
 }
@@ -22,7 +29,7 @@
 /*  stroke-dasharray: 0, 2 1;*/
 }
 
-.top-buffer { margin-top:35px; }
+.top-buffer { margin-top:10px; }
 
 .elt {
   text-align: center;
@@ -64,10 +71,13 @@ circle.bubble {
 circle.running {
   fill: green;
 }
+circle.stack{
+  fill: yellow;
+}
 
 
 text {
-    font: 10px sans-serif;
+    font: 18px sans-serif;
     pointer-events: none;
 }
 
@@ -92,33 +102,35 @@ text.shadow {
     <script type="text/javascript" src="/visuals/bootstrap/js/bootstrap-slider.js"></script>
 </head>
 <body>
-<div class="container controller">
-    <div class="span12 row-fluid">
+<div id="top" class="container controller">
+    <div class="span12 row-fluid top-buffer">
       <div class="span4">
         <H1>Show My Code</H1>
       </div>
       <div class="playback-controls offset1 span7">
-      <div id="back" class="elt span1">
-        <button class='btn'>
-          <i class="icon-step-backward"></i>
-        </button>
-      </div>
-      <div id="action" class="elt play span1">
-        <button class='btn'> 
-          <i class="icon-play" id="playBtn"></i>
-          <i class="icon-pause" id="pauseBtn" style="display:none"></i>
-        </button>
-      </div>
-      <div id="fwd" class="elt span1">
-        <button class='btn'> 
-          <i class="icon-step-forward"></i>
-        </button>
-      </div>
-      <div class="slider-controls span3">
-      <input type='text' class="slider slider-horizontal" id="speedSlide" style="width: 140px"/>
-      </div>
+        <div id="back" class="elt span1">
+          <button class='btn disabled' id='backBtn'>
+            <i class="icon-step-backward"></i>
+          </button>
+        </div>
+        <div id="action" class="elt play span1">
+          <button class='btn'> 
+            <i class="icon-play" id="playBtn"></i>
+            <i class="icon-pause" id="pauseBtn" style="display:none"></i>
+            <i class="icon-refresh" id="refreshBtn" style="display:none"></i>
+          </button>
+        </div>
+        <div id="fwd" class="elt span1">
+          <button class='btn' id='fwdBtn'> 
+            <i class="icon-step-forward"></i>
+          </button>
+        </div>
+        <div class="slider-controls span3">
+          <input type='text' class="slider slider-horizontal" id="speedSlide" style="width: 140px"/>
+        </div>
       </div>
     </div>
+</div>
 <!--     <div class="row-fluid elt top-buffer">
       <div id="well" class="elt offset3 span6">
         <div class="slider slider-horizontal" style="width: 140px">
@@ -128,9 +140,6 @@ text.shadow {
        <input type="text" class="span2 slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide"> 
         Slide
       -->
-      </div>
-    </div>
-</div>
 <div class="container">
 </div>
 </body>

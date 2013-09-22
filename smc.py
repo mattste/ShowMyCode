@@ -9,43 +9,44 @@ class treeGen(ast.NodeVisitor):
 #print type(node).__name__
         ast.NodeVisitor.generic_visit(self, node)
     def visit_FunctionDef(self, node):
-	if not self.fxns.has_key(node.name):
-	    self.fxns[node.name] = {}
-#print "Functions are awesome"
-#print node.name
-#self.getFxnCalls(node)
-	ast.NodeVisitor.generic_visit(self, node)
+    	if not self.fxns.has_key(node.name):
+    	    self.fxns[node.name] = {}
+    	ast.NodeVisitor.generic_visit(self, node)
 #    def visit_Module(self, node):
 #print "Modules"
 #	for i in ast.iter_child_nodes(node):
 #print type(i)
 #	ast.NodeVisitor.generic_visit(self, node)
     def visit_arguments(self, node):
-	theseArgs = node.args
-	while(node and type(node) != ast.FunctionDef):
-	    node = node.parent
-	if(type(node) == ast.FunctionDef):
-	    if(not self.fxns[node.name].has_key('args')):
-		self.fxns[node.name]['args'] = []
-	    for i in theseArgs:
-	        self.fxns[node.name]['args'].append(i.id)
+    	theseArgs = node.args
+        originalNode = node
+        if(type(node) != ast.Call):
+        	while(node and type(node) != ast.FunctionDef):
+        	    node = node.parent
+        	if(type(node) == ast.FunctionDef):
+        	    if(not self.fxns[node.name].has_key('args')):
+            		self.fxns[node.name]['args'] = []
+        	    for i in theseArgs:
+        	        self.fxns[node.name]['args'].append(i.id)
+        ast.NodeVisitor.generic_visit(self, originalNode)
 
     def visit_Call(self, node):
-	if('id' in node.func._fields):
-	    callId = node.func.id
-#	    print "Called ", callId
-#    print self.fxns.has_key(callId)
-	    if not self.fxns.has_key(callId):
-		self.fxns[callId] = {}
-	    while(node and type(node) != ast.FunctionDef):
-#		print type(node)
-		node = node.parent
-#	    print "Finished loop"
-#	    print type(node)
-	    if(type(node) == ast.FunctionDef):
-		if not self.fxns[node.name].has_key('calls'):
-		    self.fxns[node.name]['calls'] = []
-		self.fxns[node.name]['calls'].append(callId)
+    	if('id' in node.func._fields):
+    	    callId = node.func.id
+    #	    print "Called ", callId
+    #    print self.fxns.has_key(callId)
+    	    if not self.fxns.has_key(callId):
+        		self.fxns[callId] = {}
+            originalNode = node
+    	    while(node and type(node) != ast.FunctionDef):
+        		node = node.parent
+    #	    print "Finished loop"
+    #	    print type(node)
+    	    if(type(node) == ast.FunctionDef):
+        		if not self.fxns[node.name].has_key('calls'):
+        		    self.fxns[node.name]['calls'] = []
+        		self.fxns[node.name]['calls'].append(callId)
+            ast.NodeVisitor.generic_visit(self, originalNode)
 
     #get all functions calls within a functionDef
 #    def getFxnCalls(self, node):

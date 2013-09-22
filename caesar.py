@@ -111,7 +111,8 @@ def getMeanFreqDicts(dicts):
     return total / (0.0 + len(dicts))
         
 def getMeanVigCipher(str, key):
-    return getMeanFreqDicts(getFreqDictsVig(str, key))
+    vFreqDict = getFreqDictsVig(str, key)
+    return getMeanFreqDicts(vFreqDict)
 
 def getVigChar(char, key):
     offset = ((ord(key) - ord('a')) + (ord(char) - ord('a')))%26
@@ -146,14 +147,16 @@ def caesarDecrypt(str):
         newStr = ''
         for i in str:
             newStr += getDecryptChar(i,chr(ord('a')+key))
-        keyVariance.append(getVarianceAgainstEngl(getFreqDict(newStr)))
+        aDict = getFreqDict(newStr)
+        engVar = getVarianceAgainstEngl(aDict)
+        keyVariance.append(engVar)
 
     return chr(ord('a')+keyVariance.index(min(keyVariance)))
 
 def shiftByLen(str,length):
     newStr = ''
     for i in range(len(str)):
-	newStr += str[(i+length)%len(str)]
+    	newStr += str[(i+length)%len(str)]
     return newStr
 
 def getCoincidences(str,length):
@@ -161,6 +164,6 @@ def getCoincidences(str,length):
     bot = shiftByLen(str, length)
     coinc = 0
     for i in range(len(str)):
-	if top[i] == bot[i]:
-	    coinc += 1
+    	if top[i] == bot[i]:
+    	    coinc += 1
     return coinc
