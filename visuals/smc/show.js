@@ -1,6 +1,7 @@
 var queue = [];
 var progStack = [];
 var qIndex = 0;
+var intervalId;
 
 
 $.get('/structure', function(ajaxData){
@@ -15,6 +16,7 @@ $.get('/structure', function(ajaxData){
 			newIndex = (newIndex + 1)% queue.length;
 		}
 		qIndex = newIndex;
+		updateGraph();
     }
 
     function decrementQIndex()
@@ -27,6 +29,15 @@ $.get('/structure', function(ajaxData){
 			newIndex = (newIndex + queue.length - 1)% queue.length;
 		}
 		qIndex = newIndex;
+		updateGraph();
+    }
+    function playProg()
+    {
+    	intervalId = setInterval(incrementQIndex, ((11-$('#speedSlide').slider('getValue').val())*100));
+    }
+    function pauseProg()
+    {
+    	clearInterval(intervalId);
     }
 
 	$(document).ready(function(){
@@ -34,11 +45,32 @@ $.get('/structure', function(ajaxData){
 		$('.slider').slider();
 		$('#back').click(function(e){
 			decrementQIndex();
-			updateGraph();
 		});
 		$('#fwd').click(function(e){
 			incrementQIndex();
-			updateGraph();
+		});
+		$('#speedSlide').on('slide', function(e)
+		{
+			//Playing
+			if($('#pauseBtn').css('display') !== 'none')
+			{
+				clearInterval(intervalId);
+				playProg();
+			}
+		});
+		$('#action').click(function(e){
+			$('#playBtn').toggle();
+			$('#pauseBtn').toggle();
+			//Paused
+			if($('#pauseBtn').css('display') === 'none')
+			{
+				pauseProg();
+			}
+			//Playing
+			else
+			{
+				playProg();
+			}
 		});
 
 	});

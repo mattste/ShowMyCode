@@ -105,7 +105,8 @@ text.shadow {
       </div>
       <div id="action" class="elt play span1">
         <button class='btn'> 
-          <i class="icon-play"></i>
+          <i class="icon-play" id="playBtn"></i>
+          <i class="icon-pause" id="pauseBtn" style="display:none"></i>
         </button>
       </div>
       <div id="fwd" class="elt span1">
@@ -114,7 +115,7 @@ text.shadow {
         </button>
       </div>
       <div class="slider-controls span3">
-      <div class="slider slider-horizontal" style="width: 140px"></div>
+      <input type='text' class="slider slider-horizontal" id="speedSlide" style="width: 140px"/>
       </div>
       </div>
     </div>
@@ -122,6 +123,7 @@ text.shadow {
       <div id="well" class="elt offset3 span6">
         <div class="slider slider-horizontal" style="width: 140px">
         </div> -->
+        
         <!--
        <input type="text" class="span2 slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide"> 
         Slide
