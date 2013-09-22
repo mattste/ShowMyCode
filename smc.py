@@ -76,49 +76,49 @@ def getD3Data(fxnArr):
     curId = 0
     for fxn in fxnArr:
         if(fxnArr[fxn].has_key('args')):
-	    thisArgs = fxnArr[fxn]['args']
-	else:
-	    thisArgs = []
-	if(fxnArr[fxn].has_key('calls')):
-	    thisCalls = fxnArr[fxn]['calls']
-    else:
-	thisCalls = []
-    newObj = {
-	'name': fxn,
-	'args': thisArgs,
-	'calls': thisCalls,
-	'id': curId, 
-    }
-    fxnArr[fxn]['id'] = curId
-    curId += 1
-    data.append(newObj)
+    	    thisArgs = fxnArr[fxn]['args']
+    	else:
+    	    thisArgs = []
+    	if(fxnArr[fxn].has_key('calls')):
+    	    thisCalls = fxnArr[fxn]['calls']
+        else:
+        	thisCalls = []
+        newObj = {
+        	'name': fxn,
+        	'args': thisArgs,
+        	'calls': thisCalls,
+        	'id': curId, 
+        }
+        fxnArr[fxn]['id'] = curId
+        curId += 1
+        data.append(newObj)
     # now have id for each fxn, and can create links
     for i in data:
         for c in i['calls']:
 	    newLink = {
 	        'source': i['id'],
 	        'target': fxnArr[c]['id'],
-	        'value': 5,
-	    }
+	        'value': 5, }
 	    links.append(newLink)
-        d3Data = {
-            'nodes': data,
-            'links': links,
-        }
+    d3Data = {
+        'nodes': data,
+        'links': links,
+    }
     return d3Data
 
-if(len(sys.argv) != 2):
-    print "Need a filename\n"
-    exit()
-fileName = sys.argv[1]
-fileName += ".py"
-f = open(fileName, 'r')
-codeBase = f.read()
-codeAst = transformers.ParentNodeTransformer().visit(ast.parse(codeBase))
 
-tg = treeGen()
-tg.visit(codeAst)
-data = getD3Data(tg.fxns)
 
 def getStructure():
+    if(len(sys.argv) != 2):
+        print "Need a filename\n"
+        exit()
+    fileName = sys.argv[1]
+    fileName += ".py"
+    f = open(fileName, 'r')
+    codeBase = f.read()
+    codeAst = transformers.ParentNodeTransformer().visit(ast.parse(codeBase))
+
+    tg = treeGen()
+    tg.visit(codeAst)
+    data = getD3Data(tg.fxns)
     return data

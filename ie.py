@@ -1,4 +1,6 @@
 import sys
+def main():
+    myfuncFirst()
 
 def myfuncFirst():
     print "hello1"
@@ -6,4 +8,3 @@ def myfuncFirst():
 def myfuncSecond(a):
     print a 
 
-myfuncFirst()

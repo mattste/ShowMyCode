@@ -7,11 +7,6 @@ import smc
 import realtime
 
 
-"""
-@route('/hello/<name>')
-def index(name='World'):
-    return template('<b>Hello {{name}}</b>!', name=name)
-"""
 myData = {
     'herro': {
 	'args': ['a'],

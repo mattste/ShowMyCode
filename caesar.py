@@ -1,5 +1,8 @@
 from math import pow
 #Decrypt a Caesar Cipher
+def main():
+    print "hello"
+
 englDict = {
     'a': .08167,
     'b': .01492,

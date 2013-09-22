@@ -1,5 +1,6 @@
 $.get('/structure', function(ajaxData){
 	var data =  JSON.parse(ajaxData);
+	console.log(data);
 
 	var width = 960,
 	height = 500;
