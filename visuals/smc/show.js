@@ -2,7 +2,7 @@ var queue = [];
 var progStack = [];
 var qIndex = 0;
 var intervalId;
-
+var isAnimating;
 
 $.get('/structure', function(ajaxData){
 
@@ -74,10 +74,12 @@ $.get('/structure', function(ajaxData){
 
 		$('.slider').slider();
 		$('#back').click(function(e){
-			decrementQIndex();
+			if (!isAnimating)
+				decrementQIndex();
 		});
 		$('#fwd').click(function(e){
-			incrementQIndex();
+			if (!isAnimating)
+				incrementQIndex();
 		});
 		$('#speedSlide').on('slide', function(e)
 		{
@@ -275,11 +277,15 @@ function getCurrentPath()
 function transition(bubble, curPath)
 {
 	console.log("path: " + curPath);
+
+	isAnimating = true;
+
 	bubble.transition()
 	.duration((11-$('#speedSlide').slider('getValue').val())*80)
 	.attrTween("transform", translateAlong(curPath.node()))
 	.each("end", function(){
 		bubble.remove();
+		isAnimating = false;
 	});
 }
 
