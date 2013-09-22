@@ -85,7 +85,7 @@ text.shadow {
 <div class="container controller">
     <div class="row-fluid">
       <div id="back" class="elt offset1 span2">
-        <button class='btn'>
+        <button class='btn disabled' id='backBtn'>
           <i class="icon-step-backward"></i>
         </button>
       </div>
@@ -93,10 +93,11 @@ text.shadow {
         <button class='btn'> 
           <i class="icon-play" id="playBtn"></i>
           <i class="icon-pause" id="pauseBtn" style="display:none"></i>
+          <i class="icon-refresh" id="refreshBtn" style="display:none"></i>
         </button>
       </div>
       <div id="fwd" class="elt span2 offset1">
-        <button class='btn'> 
+        <button class='btn' id='fwdBtn'> 
           <i class="icon-step-forward"></i>
         </button>
       </div>

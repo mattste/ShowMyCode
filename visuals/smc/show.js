@@ -8,34 +8,58 @@ $.get('/structure', function(ajaxData){
 
     function incrementQIndex()
     {
-    	var newIndex = (qIndex + 1)% queue.length;
-		var checkName =queue[qIndex].name;
-		if(queue[newIndex].isBegin)
-			progStack.push(queue[qIndex].name);
-		else
-			progStack.pop();
-		while(checkName === queue[newIndex].name)
-		{
-			newIndex = (newIndex + 1)% queue.length;
-		}
-		qIndex = newIndex;
-		updateGraph();
+		$('#backBtn').removeClass('disabled');
+    	if(qIndex !== queue.length - 1)
+    	{
+    		var newIndex = (qIndex + 1)% queue.length;
+    		var checkName =queue[qIndex].name;
+    		if(queue[newIndex].isBegin)
+    			progStack.push(queue[qIndex].name);
+    		else
+    			progStack.pop();
+    		while(checkName === queue[newIndex].name)
+    		{
+    			newIndex = (newIndex + 1)% queue.length;
+    		}
+    		qIndex = newIndex;
+    	}
+    	if(qIndex === queue.length - 1)
+    	{
+    		$('#fwdBtn').addClass('disabled');
+    		if($('#pauseBtn').css('display') !== 'none')
+    		{
+	    		$('#pauseBtn').hide();
+    			clearInterval(intervalId);
+    		}
+    		else
+    		{
+    			$('#playBtn').hide();
+    		}
+    		$('#refreshBtn').show();
+    	}
+    	updateGraph();
     }
 
     function decrementQIndex()
     {
-		var newIndex = (qIndex + queue.length - 1)% queue.length;
-		var checkName =queue[qIndex].name;
-		if(queue[newIndex].isBegin)
-			progStack.pop();
-		else
-			progStack.push(queue[qIndex].name);
-		while(checkName=== queue[newIndex].name)
-		{
-			newIndex = (newIndex + queue.length - 1)% queue.length;
-		}
-		qIndex = newIndex;
-		updateGraph();
+    	$('#fwdBtn').removeClass('disabled');
+    	if(qIndex !== 0)
+    	{
+    		var newIndex = (qIndex + queue.length - 1)% queue.length;
+    		var checkName =queue[qIndex].name;
+    		if(queue[newIndex].isBegin)
+    			progStack.pop();
+    		else
+    			progStack.push(queue[qIndex].name);
+    		while(checkName=== queue[newIndex].name)
+    		{
+    			newIndex = (newIndex + queue.length - 1)% queue.length;
+    		}
+    		qIndex = newIndex;
+    	}
+    	if(qIndex === 0)
+    		$('#backBtn').addClass('disabled');
+    	updateGraph();
     }
     function playProg()
     {
@@ -65,17 +89,26 @@ $.get('/structure', function(ajaxData){
 			}
 		});
 		$('#action').click(function(e){
-			$('#playBtn').toggle();
-			$('#pauseBtn').toggle();
-			//Paused
-			if($('#pauseBtn').css('display') === 'none')
+			if($('#playBtn').css('display') !== 'none')
 			{
+				$('#playBtn').toggle();
+				$('#pauseBtn').toggle();
+				playProg();
+			}
+			else if($('#pauseBtn').css('display') !== 'none')
+			{
+				$('#playBtn').toggle();
+				$('#pauseBtn').toggle();
 				pauseProg();
 			}
-			//Playing
 			else
 			{
-				playProg();
+				$('#playBtn').toggle();
+				$('#refreshBtn').toggle();
+				$('#fwdBtn').removeClass('disabled');
+				$('#backBtn').addClass('disabled');
+				qIndex = 0;
+				updateGraph();
 			}
 		});
 
