@@ -76,7 +76,7 @@ rr.setupRecording(sys.argv[1])
 rr.start()
 
 def getActions():
-	temp = rr.actions
-	#rr.actions[:] = []
+	temp = rr.actions[:]
+	rr.actions[:] = []
 
 	return temp
